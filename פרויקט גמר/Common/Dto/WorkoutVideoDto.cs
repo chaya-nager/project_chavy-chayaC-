@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Entities
+namespace Common.Dto
 {
     public class WorkoutVideoDto
     {
@@ -26,7 +26,7 @@ namespace Common.Entities
 
         public string TargetAudience { get; set; } = string.Empty; // למשל: חולי לב 
 
-        public byte[] VideoUrl { get; set; } = string.Empty;
+        public byte[] VideoUrl { get; set; } 
 
         public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 
