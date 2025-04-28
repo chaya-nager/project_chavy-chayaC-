@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
-    public class WorkOutVideoRepository : IRepository<WorkoutVideo>
+    public class WorkoutVideoRepository : IRepository<WorkoutVideo>
     {
         private readonly IContext context;
-        public WorkOutVideoRepository(IContext context)
+        public WorkoutVideoRepository(IContext context)
         {
             this.context = context;
         }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Common.Dto
 {
@@ -26,7 +27,9 @@ namespace Common.Dto
 
         public string TargetAudience { get; set; } = string.Empty; // למשל: חולי לב 
 
-        public byte[] VideoUrl { get; set; } 
+        public byte[] VideoArr { get; set; }
+        
+       public IFormFile fileVideo { get; set; } 
 
         public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 

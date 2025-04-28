@@ -11,9 +11,12 @@ namespace Service.Services
 {
     public class MyMapper:Profile
     {
+        string path=Path.Combine(Environment.CurrentDirectory, "Videos/");
+
         public MyMapper()
         {
-            //CreateMap<User,UserDto>().ForMember("",x=>);
+            CreateMap<WorkoutVideo, WorkoutVideoDto>().ForMember("VideoArr", x => x.MapFrom(y => File.ReadAllBytes(path + y.VideoUrl)));
+            CreateMap<WorkoutVideoDto,WorkoutVideo>().ForMember("VideoUrl", x=>x.MapFrom(y=>File.ReadAllBytes(path+y.VideoArr)));
         }
     }
 }
