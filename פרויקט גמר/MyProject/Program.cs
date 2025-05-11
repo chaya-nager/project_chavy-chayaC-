@@ -22,6 +22,7 @@ internal class Program
         builder.Services.AddScoped<IService<WorkoutVideoDto>, WorkoutVideoService>();
         builder.Services.AddScoped<IRepository<WorkoutVideo>, WorkoutVideoRepository>();
         builder.Services.AddAutoMapper(typeof(MyMapper));
+        //thissssss
         builder.Services.AddDbContext<IContext, Database>();
 
 
