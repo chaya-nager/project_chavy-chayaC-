@@ -5,6 +5,7 @@ using Repository.Repositories;
 using Service.Interfaces;
 using Service.Services;
 using Mock;
+using Microsoft.AspNetCore.Http.Features;
 internal class Program
 {
     private static void Main(string[] args)
@@ -25,8 +26,10 @@ internal class Program
         //thissssss
         builder.Services.AddDbContext<IContext, Database>();
 
-
-
+        builder.Services.Configure<FormOptions>(options =>
+        {
+            options.MultipartBodyLengthLimit = 100_000_000; // 100MB
+        });
 
         var app = builder.Build();
 

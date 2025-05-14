@@ -51,7 +51,7 @@ namespace MyProject.Controllers
 
         private void UploadVideo(IFormFile file)
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "Videos/", file.Name);
+            var path = Path.Combine(Environment.CurrentDirectory, "Videos/", file.FileName);
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 file.CopyTo(stream);

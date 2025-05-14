@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "MyProject.Controllers.UserController",
-    "Method": "Get",
+    "Method": "GetUsers",
     "RelativePath": "api/User",
     "HttpMethod": "GET",
     "IsController": true,
@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repository.Entities.User, Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -29,7 +29,7 @@
     "Parameters": [
       {
         "Name": "value",
-        "Type": "System.String",
+        "Type": "Repository.Entities.User",
         "IsRequired": true
       }
     ],
@@ -43,7 +43,7 @@
   },
   {
     "ContainingType": "MyProject.Controllers.UserController",
-    "Method": "Get",
+    "Method": "GetUserById",
     "RelativePath": "api/User/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -57,7 +57,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.String",
+        "Type": "Repository.Entities.User",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -81,8 +81,60 @@
         "IsRequired": true
       },
       {
-        "Name": "value",
-        "Type": "System.String",
+        "Name": "user",
+        "Type": "Repository.Entities.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyProject.Controllers.UserController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/User/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyProject.Controllers.UserWorkoutPlanController",
+    "Method": "GetUserWorkoutPlans",
+    "RelativePath": "api/UserWorkoutPlan",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repository.Entities.UserWorkoutPlan, Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MyProject.Controllers.UserWorkoutPlanController",
+    "Method": "Post",
+    "RelativePath": "api/UserWorkoutPlan",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userWorkoutPlan",
+        "Type": "Repository.Entities.UserWorkoutPlan",
         "IsRequired": true
       }
     ],
@@ -95,9 +147,56 @@
     ]
   },
   {
-    "ContainingType": "MyProject.Controllers.UserController",
+    "ContainingType": "MyProject.Controllers.UserWorkoutPlanController",
+    "Method": "GetUserById",
+    "RelativePath": "api/UserWorkoutPlan/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Repository.Entities.UserWorkoutPlan",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MyProject.Controllers.UserWorkoutPlanController",
+    "Method": "PutUserWorkoutPlan",
+    "RelativePath": "api/UserWorkoutPlan/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "userWorkoutPlan",
+        "Type": "Repository.Entities.UserWorkoutPlan",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyProject.Controllers.UserWorkoutPlanController",
     "Method": "Delete",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/UserWorkoutPlan/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

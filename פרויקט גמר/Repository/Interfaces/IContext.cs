@@ -13,6 +13,6 @@ namespace Repository.Interfaces
         public DbSet<User> Users { get; set; }
         public DbSet<UserWorkoutPlan> UserWorkoutPlans { get; set; }
         public DbSet<WorkoutVideo> WorkoutVideos { get; set; }
-        public void Save();
+        public Task Save();
     }
 }

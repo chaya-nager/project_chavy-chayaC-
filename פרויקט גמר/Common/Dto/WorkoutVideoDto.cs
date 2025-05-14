@@ -27,7 +27,7 @@ namespace Common.Dto
 
         public string TargetAudience { get; set; } = string.Empty; // למשל: חולי לב 
 
-        public byte[] VideoArr { get; set; }
+        public byte[]? VideoArr { get; set; }
         
        public IFormFile fileVideo { get; set; } 
 

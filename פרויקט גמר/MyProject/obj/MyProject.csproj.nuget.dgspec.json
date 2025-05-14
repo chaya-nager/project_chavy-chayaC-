@@ -276,7 +276,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\user1\\Desktop\\תכנות חיהלה\\פרויקט גמר אימונים\\C#\\project_chavy-chayaC-\\פרויקט גמר\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\user1\\Desktop\\תכנות חיהלה\\פרויקט גמר אימונים\\C#\\project_chavy-chayaC-\\פרויקט גמר\\Common\\Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

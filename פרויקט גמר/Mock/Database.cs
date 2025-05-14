@@ -18,9 +18,9 @@ namespace Mock
         public DbSet<UserWorkoutPlan> UserWorkoutPlans { get; set; }
         public DbSet<WorkoutVideo> WorkoutVideos { get; set; }
 
-        public void Save()
+        public async Task Save()
         {
-            SaveChanges();
+            SaveChangesAsync();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
