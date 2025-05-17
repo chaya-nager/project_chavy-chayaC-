@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace Service.Services
 {
-    public class WorkoutVideoService: IService<WorkoutVideoDto>
+    public class WorkoutVideoService: IService<Common.Dto.WorkoutVideoDto>
     {
-        private readonly IRepository<WorkoutVideo> repository;
+        private readonly IRepository<Repository.Entities.WorkoutVideo> repository;
         private readonly IMapper mapper;
 
-        public WorkoutVideoService(IRepository<WorkoutVideo> repository, IMapper mapper)
+        public WorkoutVideoService(IRepository<Repository.Entities.WorkoutVideo> repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
         }
 
-        public WorkoutVideoDto AddItem(WorkoutVideoDto item)
+        public Common.Dto.WorkoutVideoDto AddItem(Common.Dto.WorkoutVideoDto item)
         {
             return mapper.Map<WorkoutVideo, WorkoutVideoDto>(repository.AddItem(mapper.Map<WorkoutVideoDto, WorkoutVideo>(item)));
         }
@@ -32,17 +32,17 @@ namespace Service.Services
             repository.DeleteItem(id);
         }
 
-        public List<WorkoutVideoDto> GetAll()
+        public List<Common.Dto.WorkoutVideoDto> GetAll()
         {
             return mapper.Map<List<WorkoutVideo>, List<WorkoutVideoDto>>(repository.GetAll());
         }
 
-        public WorkoutVideoDto GetById(int id)
+        public Common.Dto.WorkoutVideoDto GetById(int id)
         {
             return mapper.Map<WorkoutVideo, WorkoutVideoDto>(repository.GetById(id));
         }
 
-        public void UpdateItem(int id, WorkoutVideoDto item)
+        public void UpdateItem(int id, Common.Dto.WorkoutVideoDto item)
         {
             repository.UpdateItem(id, mapper.Map<WorkoutVideoDto, WorkoutVideo>(item));
         }

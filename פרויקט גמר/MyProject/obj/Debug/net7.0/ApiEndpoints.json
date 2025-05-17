@@ -217,7 +217,7 @@
   },
   {
     "ContainingType": "MyProject.Controllers.WorkoutVideoController",
-    "Method": "Get",
+    "Method": "GetWorkoutVideo",
     "RelativePath": "api/WorkoutVideo",
     "HttpMethod": "GET",
     "IsController": true,
@@ -225,7 +225,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repository.Entities.WorkoutVideo, Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -309,7 +309,7 @@
   },
   {
     "ContainingType": "MyProject.Controllers.WorkoutVideoController",
-    "Method": "Get",
+    "Method": "GetWorkoutVideoById",
     "RelativePath": "api/WorkoutVideo/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -323,7 +323,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.String",
+        "Type": "Repository.Entities.WorkoutVideo",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -347,22 +347,16 @@
         "IsRequired": true
       },
       {
-        "Name": "value",
-        "Type": "System.String",
+        "Name": "workoutVideo",
+        "Type": "Repository.Entities.WorkoutVideo",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "MyProject.Controllers.WorkoutVideoController",
-    "Method": "Delete",
+    "Method": "DeleteWorkoutVideo",
     "RelativePath": "api/WorkoutVideo/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -374,13 +368,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "MyProject.Controllers.WeatherForecastController",

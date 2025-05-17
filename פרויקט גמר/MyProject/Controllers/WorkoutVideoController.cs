@@ -1,5 +1,8 @@
 ﻿using Common.Dto;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Repository.Entities;
+using Repository.Interfaces;
 using Service.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,22 +14,31 @@ namespace MyProject.Controllers
     public class WorkoutVideoController : ControllerBase
     {
         private readonly IService<WorkoutVideoDto> service;
-        public WorkoutVideoController(IService<WorkoutVideoDto> service)
+        private readonly IContext _context;
+
+        public WorkoutVideoController(IService<WorkoutVideoDto> service, IContext _context)
         {
             this.service = service;
+            this._context = _context;
         }
         // GET: api/<WorkoutVideoController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<WorkoutVideo>>> GetWorkoutVideo()
         {
-            return new string[] { "value1", "value2" };
+            return await _context.WorkoutVideos.ToListAsync();
         }
+
 
         // GET api/<WorkoutVideoController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<WorkoutVideo>> GetWorkoutVideoById(int id)
         {
-            return "value";
+            var WorkoutVideo = await _context.WorkoutVideos.FindAsync(id);
+            if (WorkoutVideo == null)
+            {
+                return NotFound();
+            }
+            return WorkoutVideo;
         }
 
         // POST api/<WorkoutVideoController>
@@ -39,14 +51,41 @@ namespace MyProject.Controllers
 
         // PUT api/<WorkoutVideoController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] WorkoutVideo workoutVideo)
         {
+            if (id != workoutVideo.VideoId)
+            {
+                return BadRequest("User ID mismatch.");
+            }
+            var workoutVideoUpdate = await _context.WorkoutVideos.FindAsync(id);
+            if (workoutVideoUpdate == null)
+            {
+                return NotFound();
+            }
+            workoutVideoUpdate.Title = workoutVideo.Title;
+            workoutVideoUpdate.Description = workoutVideo.Description;
+            workoutVideoUpdate.Duration = workoutVideo.Duration;
+            workoutVideoUpdate.DifficultyLevel = workoutVideo.DifficultyLevel;
+            workoutVideoUpdate.WorkoutType = workoutVideo.WorkoutType;
+            workoutVideoUpdate.TargetAudience = workoutVideo.TargetAudience;
+            workoutVideoUpdate.VideoUrl = workoutVideo.VideoUrl;
+            workoutVideoUpdate.UploadedAt = workoutVideo.UploadedAt;
+            workoutVideoUpdate.TrainerId = workoutVideo.TrainerId;
+            await _context.SaveChangeAsync();
+            return NoContent();
         }
-
         // DELETE api/<WorkoutVideoController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteWorkoutVideo(int id)
         {
+            var workoutVideo = await _context.WorkoutVideos.FindAsync(id);
+            if (workoutVideo == null)
+            {
+                return NotFound();
+            }
+            _context.WorkoutVideos.Remove(workoutVideo);
+            await _context.SaveChangeAsync();
+            return NoContent(); // מחזיר 204 בלי תוכן
         }
 
         private void UploadVideo(IFormFile file)

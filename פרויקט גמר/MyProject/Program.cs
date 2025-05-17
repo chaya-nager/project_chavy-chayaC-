@@ -20,8 +20,8 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         //הגדרת התלויות
-        builder.Services.AddScoped<IService<WorkoutVideoDto>, WorkoutVideoService>();
-        builder.Services.AddScoped<IRepository<WorkoutVideo>, WorkoutVideoRepository>();
+        builder.Services.AddScoped<IService<Common.Dto.WorkoutVideoDto>, WorkoutVideoService>();
+        builder.Services.AddScoped<IRepository<Repository.Entities.WorkoutVideo>, WorkoutVideoRepository>();
         builder.Services.AddAutoMapper(typeof(MyMapper));
         //thissssss
         builder.Services.AddDbContext<IContext, Database>();
