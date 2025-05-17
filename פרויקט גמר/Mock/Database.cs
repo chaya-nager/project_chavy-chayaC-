@@ -18,7 +18,7 @@ namespace Mock
         public DbSet<UserWorkoutPlan> UserWorkoutPlans { get; set; }
         public DbSet<WorkoutVideo> WorkoutVideos { get; set; }
 
-        public async Task Save()
+        public async Task SaveChangeAsync()
         {
             SaveChangesAsync();
         }

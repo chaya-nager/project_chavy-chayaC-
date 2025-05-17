@@ -44,7 +44,7 @@ namespace MyProject.Controllers
         public void Post(User value)
         {  // שמירה למסד הנתונים
                 _context.Users.Add(value);
-                _context.Save();   
+                _context.SaveChangeAsync();   
         }
 
         // PUT api/<UserController>/5
@@ -66,7 +66,7 @@ namespace MyProject.Controllers
             userUpdate.BirthDate = user.BirthDate;
             userUpdate.UserType = user.UserType;
             userUpdate.HealthConditions = user.HealthConditions;
-            await _context.Save();
+            await _context.SaveChangeAsync();
             return NoContent(); 
         }
 
@@ -80,7 +80,7 @@ namespace MyProject.Controllers
                 return NotFound();
             }
             _context.Users.Remove(user);
-            await _context.Save();
+            await _context.SaveChangeAsync();
             return NoContent(); // מחזיר 204 בלי תוכן
         }
     }

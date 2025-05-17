@@ -18,14 +18,14 @@ namespace Repository.Repositories
         public User AddItem(User item)
         {
             this.context.Users.Add(item);
-            this.context.Save();
+            this.context.SaveChangeAsync();
             return item;
         }
 
         public void DeleteItem(int id)
         {
             this.context.Users.Remove(GetById(id));
-            this.context.Save();
+            this.context.SaveChangeAsync();
         }
 
         public List<User> GetAll()
@@ -48,7 +48,7 @@ namespace Repository.Repositories
             user.UserType = item.UserType;
             user.HealthConditions = item.HealthConditions;
             user.WorkoutVideos = item.WorkoutVideos;
-            context.Save();
+            context.SaveChangeAsync();
         }
     }
 }
