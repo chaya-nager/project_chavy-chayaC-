@@ -71,7 +71,7 @@ namespace MyProject.Controllers
             workoutVideoUpdate.VideoUrl = workoutVideo.VideoUrl;
             workoutVideoUpdate.UploadedAt = workoutVideo.UploadedAt;
             workoutVideoUpdate.TrainerId = workoutVideo.TrainerId;
-            await _context.SaveChangeAsync();
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         // DELETE api/<WorkoutVideoController>/5
@@ -84,7 +84,7 @@ namespace MyProject.Controllers
                 return NotFound();
             }
             _context.WorkoutVideos.Remove(workoutVideo);
-            await _context.SaveChangeAsync();
+            await _context.SaveChangesAsync();
             return NoContent(); // מחזיר 204 בלי תוכן
         }
 
