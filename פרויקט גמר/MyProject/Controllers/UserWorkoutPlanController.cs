@@ -40,7 +40,7 @@ namespace MyProject.Controllers
         public void Post(UserWorkoutPlan userWorkoutPlan)
         {  // שמירה למסד הנתונים
             _context.UserWorkoutPlans.Add(userWorkoutPlan);
-            _context.SaveChangeAsync();
+            _context.SaveChangesAsync();
         }
 
 
@@ -57,7 +57,7 @@ namespace MyProject.Controllers
             userWorkoutPlanUpdate.VideoId = userWorkoutPlan.VideoId;
             try
             {
-                await _context.SaveChangeAsync();
+                await _context.SaveChangesAsync();
                 return NoContent(); // הצלחה בלי תוכן
             }
             catch (Exception ex)

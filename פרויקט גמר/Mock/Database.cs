@@ -18,14 +18,16 @@ namespace Mock
         public DbSet<UserWorkoutPlan> UserWorkoutPlans { get; set; }
         public DbSet<WorkoutVideo> WorkoutVideos { get; set; }
 
-        public async Task SaveChangeAsync()
+        public async Task SaveChangesAsync()
         {
-            SaveChangesAsync();
+            Console.WriteLine("ssssssssssssssssssssssssssssssssssssssssssssssssss");
+            await base.SaveChangesAsync();
+            Console.WriteLine("ssssss");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=.;database=GymDB;trusted_connection=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("server=DYNABOOK;database=GymDB;trusted_connection=true;TrustServerCertificate=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

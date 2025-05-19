@@ -18,14 +18,14 @@ namespace Repository.Repositories
         public WorkoutVideo AddItem(WorkoutVideo item)
         {
             this.context.WorkoutVideos.Add(item);
-            this.context.SaveChangeAsync();
+            this.context.SaveChangesAsync();
             return item;
         }
 
         public void DeleteItem(int id)
         {
             this.context.WorkoutVideos.Remove(GetById(id));
-            this.context.SaveChangeAsync();
+            this.context.SaveChangesAsync();
         }
 
         public List<WorkoutVideo> GetAll()
@@ -51,7 +51,7 @@ namespace Repository.Repositories
             workoutVideo.UploadedAt = item.UploadedAt;
             workoutVideo.TrainerId = item.TrainerId;
             workoutVideo.Trainer = item.Trainer;
-            context.SaveChangeAsync();
+            context.SaveChangesAsync();
         }
     }
 }

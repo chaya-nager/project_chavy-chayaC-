@@ -18,14 +18,14 @@ namespace Repository.Repositories
         public UserWorkoutPlan AddItem(UserWorkoutPlan item)
         {
             this.context.UserWorkoutPlans.Add(item);
-            this.context.SaveChangeAsync();
+            this.context.SaveChangesAsync();
             return item;
         }
 
         public void DeleteItem(int id)
         {
             this.context.UserWorkoutPlans.Remove(GetById(id));
-            this.context.SaveChangeAsync();
+            this.context.SaveChangesAsync();
         }
 
         public List<UserWorkoutPlan> GetAll()
@@ -45,7 +45,7 @@ namespace Repository.Repositories
             userWorkoutPlan.User = item.User;
             userWorkoutPlan.VideoId = item.VideoId;
             userWorkoutPlan.WorkoutVideo = item.WorkoutVideo;
-            context.SaveChangeAsync();
+            context.SaveChangesAsync();
         }
     }
 }
