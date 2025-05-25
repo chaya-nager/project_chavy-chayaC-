@@ -9,10 +9,10 @@ namespace Repository.Interfaces
 {
     public interface IRepository<T>
     {
-        T GetById(int id);
-        List<T> GetAll();
-        T AddItem(T item);
-        void DeleteItem(int id);
-        void UpdateItem(int id, T item);
+        Task<T> GetByIdAsync(int id);
+        Task<List<T>> GetAllAsync();
+        Task<T> AddItemAsync(T item);
+        Task DeleteItemAsync(int id);
+        Task UpdateItemAsync(int id, T item);
     }
 }

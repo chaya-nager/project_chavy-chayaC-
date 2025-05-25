@@ -11,40 +11,41 @@ using System.Threading.Tasks;
 
 namespace Service.Services
 {
-    public class WorkoutVideoService: IService<Common.Dto.WorkoutVideoDto>
+    public class WorkoutVideoService: IService<WorkoutVideoDto>
     {
-        private readonly IRepository<Repository.Entities.WorkoutVideo> repository;
+        private readonly IRepository<WorkoutVideo> repository;
         private readonly IMapper mapper;
 
-        public WorkoutVideoService(IRepository<Repository.Entities.WorkoutVideo> repository, IMapper mapper)
+        public WorkoutVideoService(IRepository<WorkoutVideo> repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
         }
 
-        public Common.Dto.WorkoutVideoDto AddItem(Common.Dto.WorkoutVideoDto item)
+        public async Task<WorkoutVideoDto> AddItemAsync(WorkoutVideoDto item)
         {
-            return mapper.Map<WorkoutVideo, WorkoutVideoDto>(repository.AddItem(mapper.Map<WorkoutVideoDto, WorkoutVideo>(item)));
+            return mapper.Map<WorkoutVideo, WorkoutVideoDto>(await repository.AddItemAsync(mapper.Map<WorkoutVideoDto, WorkoutVideo>(item)));
         }
 
-        public void DeleteItem(int id)
+
+        public async Task DeleteItemAsync(int id)
         {
-            repository.DeleteItem(id);
+            await repository.DeleteItemAsync(id);
         }
 
-        public List<Common.Dto.WorkoutVideoDto> GetAll()
+        public async Task<List<WorkoutVideoDto>> GetAllAsync()
         {
-            return mapper.Map<List<WorkoutVideo>, List<WorkoutVideoDto>>(repository.GetAll());
+            return mapper.Map<List<WorkoutVideo>, List<WorkoutVideoDto>>(await repository.GetAllAsync());
         }
 
-        public Common.Dto.WorkoutVideoDto GetById(int id)
+        public async Task<WorkoutVideoDto> GetByIdAsync(int id)
         {
-            return mapper.Map<WorkoutVideo, WorkoutVideoDto>(repository.GetById(id));
+            return mapper.Map<WorkoutVideo, WorkoutVideoDto>(await repository.GetByIdAsync(id));
         }
 
-        public void UpdateItem(int id, Common.Dto.WorkoutVideoDto item)
+        public async Task UpdateItemAsync(int id, WorkoutVideoDto item)
         {
-            repository.UpdateItem(id, mapper.Map<WorkoutVideoDto, WorkoutVideo>(item));
+           await repository.UpdateItemAsync(id, mapper.Map<WorkoutVideoDto, WorkoutVideo>(item));
         }
     }
 }

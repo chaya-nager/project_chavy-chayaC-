@@ -20,17 +20,29 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         //הגדרת התלויות
-        builder.Services.AddScoped<IService<Common.Dto.WorkoutVideoDto>, WorkoutVideoService>();
-        builder.Services.AddScoped<IRepository<Repository.Entities.WorkoutVideo>, WorkoutVideoRepository>();
+        builder.Services.AddScoped<IService<WorkoutVideoDto>, WorkoutVideoService>();
+        builder.Services.AddScoped<IRepository<WorkoutVideo>, WorkoutVideoRepository>();
+        builder.Services.AddScoped<IService<UserWorkoutPlanDto>, UserWorkoutPlanService>();
+        builder.Services.AddScoped<IRepository<UserWorkoutPlan>, UserWorkoutPlanRepository>();
+        builder.Services.AddScoped<IService<UserDto>, UserService>();
+        builder.Services.AddScoped<IRepository<User>, UserRepository>();
+        builder.Services.AddDbContext<IContext, Database>();
         builder.Services.AddAutoMapper(typeof(MyMapper));
         //thissssss
         builder.Services.AddDbContext<IContext, Database>();
 
-        builder.Services.Configure<FormOptions>(options =>
+        //builder.Services.Configure<FormOptions>(options =>
+        //{
+        //    options.MultipartBodyLengthLimit = 100_000_000; // 100MB
+        //});
+        //builder.WebHost.ConfigureKestrel(serverOptions =>
+        //{
+        //    serverOptions.Limits.MaxRequestBodySize = 50 * 1024 * 1024; // 50 MB
+        //});
+        builder.WebHost.ConfigureKestrel(serverOptions =>
         {
-            options.MultipartBodyLengthLimit = 100_000_000; // 100MB
+            serverOptions.Limits.MaxRequestBodySize = 100L * 1024 * 1024 * 1024; // למשל 1GB
         });
-
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

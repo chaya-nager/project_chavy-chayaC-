@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Videos\" />
+    <Folder Include="Videos\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using Repository.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Entities;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,43 +16,50 @@ namespace Repository.Repositories
         {
             this.context = context;
         }
-        public WorkoutVideo AddItem(WorkoutVideo item)
+        public async Task<WorkoutVideo> AddItemAsync(WorkoutVideo item)
         {
-            this.context.WorkoutVideos.Add(item);
-            this.context.SaveChangesAsync();
+            await context.WorkoutVideos.AddAsync(item);
+            await context.SaveChangesAsync();
             return item;
         }
 
-        public void DeleteItem(int id)
+        public async Task DeleteItemAsync(int id)
         {
-            this.context.WorkoutVideos.Remove(GetById(id));
-            this.context.SaveChangesAsync();
+            var user = await GetByIdAsync(id);
+            if (user != null)
+            {
+                context.WorkoutVideos.Remove(user);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public List<WorkoutVideo> GetAll()
+        public async Task<List<WorkoutVideo>> GetAllAsync()
         {
-            return context.WorkoutVideos.ToList();
+            return await context.WorkoutVideos.ToListAsync();
         }
 
-        public WorkoutVideo GetById(int id)
+        public async Task<WorkoutVideo> GetByIdAsync(int id)
         {
-            return context.WorkoutVideos.FirstOrDefault(x => x.VideoId == id);
+            return await context.WorkoutVideos.FirstOrDefaultAsync(x => x.VideoId == id);
         }
 
-        public void UpdateItem(int id, WorkoutVideo item)
+        public async Task UpdateItemAsync(int id, WorkoutVideo item)
         {
-            var workoutVideo = GetById(id);
-            workoutVideo.Title = item.Title;
-            workoutVideo.Description = item.Description;
-            workoutVideo.Duration = item.Duration;
-            workoutVideo.DifficultyLevel = item.DifficultyLevel;
-            workoutVideo.WorkoutType = item.WorkoutType;
-            workoutVideo.TargetAudience = item.TargetAudience;
-            workoutVideo.VideoUrl = item.VideoUrl;
-            workoutVideo.UploadedAt = item.UploadedAt;
-            workoutVideo.TrainerId = item.TrainerId;
-            workoutVideo.Trainer = item.Trainer;
-            context.SaveChangesAsync();
+            var workoutVideo =await GetByIdAsync(id);
+            if (workoutVideo != null)
+            {
+                workoutVideo.Title = item.Title;
+                workoutVideo.Description = item.Description;
+                workoutVideo.Duration = item.Duration;
+                workoutVideo.DifficultyLevel = item.DifficultyLevel;
+                workoutVideo.WorkoutType = item.WorkoutType;
+                workoutVideo.TargetAudience = item.TargetAudience;
+                workoutVideo.VideoUrl = item.VideoUrl;
+                workoutVideo.UploadedAt = item.UploadedAt;
+                workoutVideo.TrainerId = item.TrainerId;
+                workoutVideo.Trainer = item.Trainer;
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

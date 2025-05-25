@@ -20,28 +20,28 @@ namespace Service.Services
             this.repository = repository;
             this.mapper = mapper;
         }
-        public UserWorkoutPlanDto AddItem(UserWorkoutPlanDto item)
+        public async Task<UserWorkoutPlanDto> AddItemAsync(UserWorkoutPlanDto item)
         {
-            return mapper.Map<UserWorkoutPlan, UserWorkoutPlanDto>(repository.AddItem(mapper.Map<UserWorkoutPlanDto, UserWorkoutPlan>(item)));
+            return mapper.Map<UserWorkoutPlan, UserWorkoutPlanDto>(await  repository.AddItemAsync(mapper.Map<UserWorkoutPlanDto,UserWorkoutPlan>(item)));
         }
 
-        public void DeleteItem(int id)
+        public async Task DeleteItemAsync(int id)
         {
-            repository.DeleteItem(id);
+            await repository.DeleteItemAsync(id);
         }
 
-        public List<UserWorkoutPlanDto> GetAll()
+        public async Task<List<UserWorkoutPlanDto>> GetAllAsync()
         { 
-            return mapper.Map<List<UserWorkoutPlan>, List<UserWorkoutPlanDto>>(repository.GetAll());
+            return mapper.Map<List<UserWorkoutPlan>, List<UserWorkoutPlanDto>>(await repository.GetAllAsync());
         }
-        public UserWorkoutPlanDto GetById(int id)
+        public async Task<UserWorkoutPlanDto> GetByIdAsync(int id)
         {
-            return mapper.Map<UserWorkoutPlan, UserWorkoutPlanDto>(repository.GetById(id));
+            return mapper.Map<UserWorkoutPlan, UserWorkoutPlanDto>(await repository.GetByIdAsync(id));
         }
 
-        public void UpdateItem(int id, UserWorkoutPlanDto item)
+        public async Task UpdateItemAsync(int id, UserWorkoutPlanDto item)
         {
-            repository.UpdateItem(id, mapper.Map<UserWorkoutPlanDto, UserWorkoutPlan>(item));
+             await repository.UpdateItemAsync(id, mapper.Map<UserWorkoutPlanDto, UserWorkoutPlan>(item));
         }
     }
 }

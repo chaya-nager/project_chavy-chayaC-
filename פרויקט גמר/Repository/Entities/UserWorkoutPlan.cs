@@ -19,9 +19,10 @@ namespace Repository.Entities
         public int UserId { get; set; }
         public User User { get; set; }
 
-        // קשר ל-WorkoutVideo
+        //// קשר ל-WorkoutVideo
         [ForeignKey("WorkoutVideo")]
-        public int VideoId { get; set; }
-        public WorkoutVideo WorkoutVideo { get; set; }
+        //public int VideoId { get; set; }
+        //public WorkoutVideo WorkoutVideo { get; set; }
+        public List<WorkoutVideo> WorkoutPlanVideos { get; set; } = new List<WorkoutVideo>();
     }
 }

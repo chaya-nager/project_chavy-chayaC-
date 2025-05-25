@@ -1,4 +1,5 @@
-﻿using Repository.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Entities;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,37 +16,43 @@ namespace Repository.Repositories
         {
             this.context = context;
         }
-        public UserWorkoutPlan AddItem(UserWorkoutPlan item)
+        public async Task<UserWorkoutPlan> AddItemAsync(UserWorkoutPlan item)
         {
-            this.context.UserWorkoutPlans.Add(item);
-            this.context.SaveChangesAsync();
+            await context.UserWorkoutPlans.AddAsync(item);
+            await context.SaveChangesAsync();
             return item;
         }
 
-        public void DeleteItem(int id)
+        public async Task DeleteItemAsync(int id)
         {
-            this.context.UserWorkoutPlans.Remove(GetById(id));
-            this.context.SaveChangesAsync();
+            var user = await GetByIdAsync(id);
+            if (user != null)
+            {
+                context.UserWorkoutPlans.Remove(user);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public List<UserWorkoutPlan> GetAll()
+        public async Task<List<UserWorkoutPlan>> GetAllAsync()
         {
-            return context.UserWorkoutPlans.ToList();
+            return await context.UserWorkoutPlans.ToListAsync();
         }
 
-        public UserWorkoutPlan GetById(int id)
+        public async Task<UserWorkoutPlan> GetByIdAsync(int id)
         {
-            return context.UserWorkoutPlans.FirstOrDefault(x => x.Id == id);
+            return await context.UserWorkoutPlans.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void UpdateItem(int id, UserWorkoutPlan item)
+        public async Task UpdateItemAsync(int id, UserWorkoutPlan item)
         {
-            var userWorkoutPlan = GetById(id);
-            userWorkoutPlan.UserId = item.UserId;
-            userWorkoutPlan.User = item.User;
-            userWorkoutPlan.VideoId = item.VideoId;
-            userWorkoutPlan.WorkoutVideo = item.WorkoutVideo;
-            context.SaveChangesAsync();
+            var userWorkoutPlan =await GetByIdAsync(id);
+            if (userWorkoutPlan != null)
+            {
+                userWorkoutPlan.UserId = item.UserId;
+                userWorkoutPlan.User = item.User;
+                userWorkoutPlan.WorkoutPlanVideos = item.WorkoutPlanVideos;
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

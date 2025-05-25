@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repository.Entities.User, Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Common.Dto.UserDto, Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -29,7 +29,7 @@
     "Parameters": [
       {
         "Name": "value",
-        "Type": "Repository.Entities.User",
+        "Type": "Common.Dto.UserDto",
         "IsRequired": true
       }
     ],
@@ -57,7 +57,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Repository.Entities.User",
+        "Type": "Common.Dto.UserDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -81,12 +81,52 @@
         "IsRequired": true
       },
       {
-        "Name": "user",
-        "Type": "Repository.Entities.User",
-        "IsRequired": true
+        "Name": "UserId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "FullName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PasswordHash",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BirthDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "HealthConditions",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Common.Dto.UserDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "MyProject.Controllers.UserController",
@@ -114,7 +154,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repository.Entities.UserWorkoutPlan, Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Common.Dto.UserWorkoutPlanDto, Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -134,7 +174,7 @@
     "Parameters": [
       {
         "Name": "userWorkoutPlan",
-        "Type": "Repository.Entities.UserWorkoutPlan",
+        "Type": "Common.Dto.UserWorkoutPlanDto",
         "IsRequired": true
       }
     ],
@@ -162,7 +202,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Repository.Entities.UserWorkoutPlan",
+        "Type": "Common.Dto.UserWorkoutPlanDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -187,15 +227,25 @@
       },
       {
         "Name": "userWorkoutPlan",
-        "Type": "Repository.Entities.UserWorkoutPlan",
+        "Type": "Common.Dto.UserWorkoutPlanDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Common.Dto.UserWorkoutPlanDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "MyProject.Controllers.UserWorkoutPlanController",
-    "Method": "Delete",
+    "Method": "DeleteUserWorkoutPlan",
     "RelativePath": "api/UserWorkoutPlan/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -207,13 +257,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "MyProject.Controllers.WorkoutVideoController",
@@ -225,7 +269,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Repository.Entities.WorkoutVideo, Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Common.Dto.WorkoutVideoDto, Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -323,7 +367,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Repository.Entities.WorkoutVideo",
+        "Type": "Common.Dto.WorkoutVideoDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -347,9 +391,59 @@
         "IsRequired": true
       },
       {
-        "Name": "workoutVideo",
-        "Type": "Repository.Entities.WorkoutVideo",
-        "IsRequired": true
+        "Name": "VideoId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Duration",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "DifficultyLevel",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "WorkoutType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "TargetAudience",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "VideoArr",
+        "Type": "System.Byte[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "fileVideo",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "UploadedAt",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "TrainerId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -369,26 +463,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MyProject.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[MyProject.WeatherForecast, MyProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]

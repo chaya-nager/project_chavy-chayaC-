@@ -1,4 +1,5 @@
-﻿using Repository.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Entities;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,40 +16,46 @@ namespace Repository.Repositories
         {
             this.context = context;
         }
-        public User AddItem(User item)
+        public async Task<User> AddItemAsync(User item)
         {
-            this.context.Users.Add(item);
-            this.context.SaveChangesAsync();
+            await context.Users.AddAsync(item);
+            await context.SaveChangesAsync();
             return item;
         }
 
-        public void DeleteItem(int id)
+        public async Task DeleteItemAsync(int id)
         {
-            this.context.Users.Remove(GetById(id));
-            this.context.SaveChangesAsync();
+            var user = await GetByIdAsync(id);
+            if (user != null)
+            {
+                context.Users.Remove(user);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public List<User> GetAll()
+        public async Task<List<User>>GetAllAsync()
         {
-            return context.Users.ToList();
+            return await context.Users.ToListAsync();
         }
 
-        public User GetById(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
-            return context.Users.FirstOrDefault(x => x.UserId == id);
+            return await context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         }
-
-        public void UpdateItem(int id, User item)
+        public async Task UpdateItemAsync(int id, User item)
         {
-            var user = GetById(id);
-            user.FullName = item.FullName;
-            user.Email = item.Email;
-            user.PasswordHash = item.PasswordHash;
-            user.BirthDate = item.BirthDate;
-            user.UserType = item.UserType;
-            user.HealthConditions = item.HealthConditions;
-            user.WorkoutVideos = item.WorkoutVideos;
-            context.SaveChangesAsync();
+            var user =await GetByIdAsync(id);
+            if (user != null)
+            {
+                user.FullName = item.FullName;
+                user.Email = item.Email;
+                user.PasswordHash = item.PasswordHash;
+                user.BirthDate = item.BirthDate;
+                user.UserType = item.UserType;
+                user.HealthConditions = item.HealthConditions;
+                user.WorkoutVideos = item.WorkoutVideos;
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

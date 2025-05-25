@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Entities;
 using Repository.Interfaces;
 using Service.Interfaces;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,87 +14,72 @@ namespace MyProject.Controllers
     [ApiController]
     public class WorkoutVideoController : ControllerBase
     {
-        private readonly IService<WorkoutVideoDto> service;
-        private readonly IContext _context;
+        private readonly IService<WorkoutVideoDto> _service;
+      
 
-        public WorkoutVideoController(IService<WorkoutVideoDto> service, IContext _context)
+        public WorkoutVideoController(IService<WorkoutVideoDto> service)
         {
-            this.service = service;
-            this._context = _context;
+            this._service = service;
+            
         }
         // GET: api/<WorkoutVideoController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WorkoutVideo>>> GetWorkoutVideo()
+        public async Task<ActionResult<List<WorkoutVideoDto>>> GetWorkoutVideo()
         {
-            return await _context.WorkoutVideos.ToListAsync();
+            return  Ok(await _service.GetAllAsync());
         }
 
 
         // GET api/<WorkoutVideoController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<WorkoutVideo>> GetWorkoutVideoById(int id)
+        public async Task<ActionResult<WorkoutVideoDto>> GetWorkoutVideoById(int id)
         {
-            var WorkoutVideo = await _context.WorkoutVideos.FindAsync(id);
+            var WorkoutVideo =await _service.GetByIdAsync(id);
             if (WorkoutVideo == null)
             {
                 return NotFound();
             }
-            return WorkoutVideo;
+            return Ok(WorkoutVideo);
         }
 
         // POST api/<WorkoutVideoController>
         [HttpPost]
-        public void Post([FromForm] WorkoutVideoDto workoutVideo)
+        public async Task Post([FromForm] WorkoutVideoDto workoutVideo)
         {
             UploadVideo(workoutVideo.fileVideo);
-            service.AddItem(workoutVideo);
+            await _service.AddItemAsync(workoutVideo);
         }
 
         // PUT api/<WorkoutVideoController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] WorkoutVideo workoutVideo)
+        public async Task<IActionResult> Put(int id, [FromForm] WorkoutVideoDto workoutVideo)
         {
             if (id != workoutVideo.VideoId)
             {
                 return BadRequest("User ID mismatch.");
             }
-            var workoutVideoUpdate = await _context.WorkoutVideos.FindAsync(id);
+            var workoutVideoUpdate = await _service.GetByIdAsync(id);
             if (workoutVideoUpdate == null)
             {
                 return NotFound();
             }
-            workoutVideoUpdate.Title = workoutVideo.Title;
-            workoutVideoUpdate.Description = workoutVideo.Description;
-            workoutVideoUpdate.Duration = workoutVideo.Duration;
-            workoutVideoUpdate.DifficultyLevel = workoutVideo.DifficultyLevel;
-            workoutVideoUpdate.WorkoutType = workoutVideo.WorkoutType;
-            workoutVideoUpdate.TargetAudience = workoutVideo.TargetAudience;
-            workoutVideoUpdate.VideoUrl = workoutVideo.VideoUrl;
-            workoutVideoUpdate.UploadedAt = workoutVideo.UploadedAt;
-            workoutVideoUpdate.TrainerId = workoutVideo.TrainerId;
-            await _context.SaveChangesAsync();
+            await _service.UpdateItemAsync(id, workoutVideo);
             return NoContent();
         }
         // DELETE api/<WorkoutVideoController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWorkoutVideo(int id)
-        {
-            var workoutVideo = await _context.WorkoutVideos.FindAsync(id);
-            if (workoutVideo == null)
-            {
-                return NotFound();
-            }
-            _context.WorkoutVideos.Remove(workoutVideo);
-            await _context.SaveChangesAsync();
-            return NoContent(); // מחזיר 204 בלי תוכן
+        {            
+           await _service.DeleteItemAsync(id);
+            return Ok();
         }
 
-        private void UploadVideo(IFormFile file)
+        private async Task UploadVideo(IFormFile file)
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "Videos/", file.FileName);
-            using (var stream = new FileStream(path, FileMode.Create))
+            var path = Path.Combine(Environment.CurrentDirectory, "Videos\\", file.FileName);
+            await using (var stream = new FileStream(path, FileMode.Create))
             {
-                file.CopyTo(stream);
+                await file.CopyToAsync(stream);
             }
         }
     }

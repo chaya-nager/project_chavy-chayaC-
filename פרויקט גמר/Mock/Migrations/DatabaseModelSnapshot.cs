@@ -68,14 +68,10 @@ namespace Mock.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VideoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VideoId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserWorkoutPlans");
                 });
@@ -113,6 +109,9 @@ namespace Mock.Migrations
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("UserWorkoutPlanId")
+                        .HasColumnType("int");
+
                     b.Property<string>("VideoUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -121,9 +120,14 @@ namespace Mock.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WorkoutVideo")
+                        .HasColumnType("int");
+
                     b.HasKey("VideoId");
 
                     b.HasIndex("TrainerId");
+
+                    b.HasIndex("UserWorkoutPlanId");
 
                     b.ToTable("WorkoutVideos");
                 });
@@ -131,20 +135,12 @@ namespace Mock.Migrations
             modelBuilder.Entity("Repository.Entities.UserWorkoutPlan", b =>
                 {
                     b.HasOne("Repository.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Repository.Entities.WorkoutVideo", "WorkoutVideo")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithOne("UserWorkoutPlan")
+                        .HasForeignKey("Repository.Entities.UserWorkoutPlan", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-
-                    b.Navigation("WorkoutVideo");
                 });
 
             modelBuilder.Entity("Repository.Entities.WorkoutVideo", b =>
@@ -155,12 +151,27 @@ namespace Mock.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Repository.Entities.UserWorkoutPlan", "UserWorkoutPlan")
+                        .WithMany("WorkoutPlanVideos")
+                        .HasForeignKey("UserWorkoutPlanId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.Navigation("Trainer");
+
+                    b.Navigation("UserWorkoutPlan");
                 });
 
             modelBuilder.Entity("Repository.Entities.User", b =>
                 {
+                    b.Navigation("UserWorkoutPlan")
+                        .IsRequired();
+
                     b.Navigation("WorkoutVideos");
+                });
+
+            modelBuilder.Entity("Repository.Entities.UserWorkoutPlan", b =>
+                {
+                    b.Navigation("WorkoutPlanVideos");
                 });
 #pragma warning restore 612, 618
         }

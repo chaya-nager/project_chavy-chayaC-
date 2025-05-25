@@ -15,8 +15,9 @@ namespace Common.Dto
         public int Id { get; set; }
 
         public int UserId { get; set; }
-    
-        public int VideoId { get; set; }
 
+        public List<int> VideoIds { get; set; } = new List<int>();
     }
+
 }
+

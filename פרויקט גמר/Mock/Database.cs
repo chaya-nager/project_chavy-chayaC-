@@ -20,29 +20,28 @@ namespace Mock
 
         public async Task SaveChangesAsync()
         {
-            Console.WriteLine("ssssssssssssssssssssssssssssssssssssssssssssssssss");
             await base.SaveChangesAsync();
-            Console.WriteLine("ssssss");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DYNABOOK;database=GymDB;trusted_connection=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("server=.;database=GymDB;trusted_connection=true;TrustServerCertificate=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // הגדרת קשרים בטבלת UserWorkoutPlan
-            modelBuilder.Entity<UserWorkoutPlan>()
-                .HasOne(u => u.User)  // קשר עם טבלת משתמשים
-                .WithMany()  // קשר מרובה-ליחיד
-                .HasForeignKey(u => u.UserId)
-                .OnDelete(DeleteBehavior.NoAction); // לא ננקטת שום פעולה על מחיקה
+            // קשר User ל-UserWorkoutPlan (אחד לאחד)
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.UserWorkoutPlan)
+                .WithOne(uwp => uwp.User)
+                .HasForeignKey<UserWorkoutPlan>(uwp => uwp.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // קשר UserWorkoutPlan ל-WorkoutVideo (אחד לרבים)
             modelBuilder.Entity<UserWorkoutPlan>()
-                .HasOne(u => u.WorkoutVideo)  // קשר עם טבלת סרטונים
-                .WithMany()  // קשר מרובה-ליחיד
-                .HasForeignKey(u => u.VideoId)
-                .OnDelete(DeleteBehavior.NoAction); // לא ננקטת שום פעולה על מחיקה
+                .HasMany(u => u.WorkoutPlanVideos)
+                .WithOne(wv => wv.UserWorkoutPlan)
+                 .HasForeignKey(wv => wv.UserWorkoutPlanId)
+                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

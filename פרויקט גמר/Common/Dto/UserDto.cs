@@ -25,6 +25,6 @@ namespace Common.Dto
         public string? HealthConditions { get; set; }
 
         // קשר 1 לרבים - משתמש יכול להעלות סרטונים אם הוא מאמן
-        public ICollection<WorkoutVideoDto>? WorkoutVideos { get; set; }
+       // public ICollection<WorkoutVideoDto>? WorkoutVideos { get; set; }
     }
 }

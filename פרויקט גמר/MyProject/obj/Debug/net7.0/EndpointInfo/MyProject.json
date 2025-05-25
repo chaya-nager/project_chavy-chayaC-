@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/User"
+                    "$ref": "#/components/schemas/UserDto"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/User"
+                    "$ref": "#/components/schemas/UserDto"
                   }
                 }
               },
@@ -34,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/User"
+                    "$ref": "#/components/schemas/UserDto"
                   }
                 }
               }
@@ -50,17 +50,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserDto"
               }
             }
           }
@@ -95,17 +95,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
@@ -130,26 +130,81 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
+                "type": "object",
+                "properties": {
+                  "UserId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "FullName": {
+                    "type": "string"
+                  },
+                  "Email": {
+                    "type": "string"
+                  },
+                  "PasswordHash": {
+                    "type": "string"
+                  },
+                  "BirthDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "UserType": {
+                    "type": "string"
+                  },
+                  "HealthConditions": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "UserId": {
+                  "style": "form"
+                },
+                "FullName": {
+                  "style": "form"
+                },
+                "Email": {
+                  "style": "form"
+                },
+                "PasswordHash": {
+                  "style": "form"
+                },
+                "BirthDate": {
+                  "style": "form"
+                },
+                "UserType": {
+                  "style": "form"
+                },
+                "HealthConditions": {
+                  "style": "form"
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
           }
         }
       },
@@ -189,7 +244,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/UserWorkoutPlan"
+                    "$ref": "#/components/schemas/UserWorkoutPlanDto"
                   }
                 }
               },
@@ -197,7 +252,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/UserWorkoutPlan"
+                    "$ref": "#/components/schemas/UserWorkoutPlanDto"
                   }
                 }
               },
@@ -205,7 +260,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/UserWorkoutPlan"
+                    "$ref": "#/components/schemas/UserWorkoutPlanDto"
                   }
                 }
               }
@@ -221,17 +276,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserWorkoutPlan"
+                "$ref": "#/components/schemas/UserWorkoutPlanDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserWorkoutPlan"
+                "$ref": "#/components/schemas/UserWorkoutPlanDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserWorkoutPlan"
+                "$ref": "#/components/schemas/UserWorkoutPlanDto"
               }
             }
           }
@@ -266,17 +321,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWorkoutPlan"
+                  "$ref": "#/components/schemas/UserWorkoutPlanDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWorkoutPlan"
+                  "$ref": "#/components/schemas/UserWorkoutPlanDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserWorkoutPlan"
+                  "$ref": "#/components/schemas/UserWorkoutPlanDto"
                 }
               }
             }
@@ -303,24 +358,41 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserWorkoutPlan"
+                "$ref": "#/components/schemas/UserWorkoutPlanDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserWorkoutPlan"
+                "$ref": "#/components/schemas/UserWorkoutPlanDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserWorkoutPlan"
+                "$ref": "#/components/schemas/UserWorkoutPlanDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWorkoutPlanDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWorkoutPlanDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWorkoutPlanDto"
+                }
+              }
+            }
           }
         }
       },
@@ -347,45 +419,6 @@
         }
       }
     },
-    "/WeatherForecast": {
-      "get": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "operationId": "GetWeatherForecast",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/WorkoutVideo": {
       "get": {
         "tags": [
@@ -399,7 +432,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WorkoutVideo"
+                    "$ref": "#/components/schemas/WorkoutVideoDto"
                   }
                 }
               },
@@ -407,7 +440,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WorkoutVideo"
+                    "$ref": "#/components/schemas/WorkoutVideoDto"
                   }
                 }
               },
@@ -415,7 +448,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WorkoutVideo"
+                    "$ref": "#/components/schemas/WorkoutVideoDto"
                   }
                 }
               }
@@ -542,17 +575,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/WorkoutVideo"
+                  "$ref": "#/components/schemas/WorkoutVideoDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WorkoutVideo"
+                  "$ref": "#/components/schemas/WorkoutVideoDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WorkoutVideo"
+                  "$ref": "#/components/schemas/WorkoutVideoDto"
                 }
               }
             }
@@ -577,19 +610,85 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/WorkoutVideo"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WorkoutVideo"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/WorkoutVideo"
+                "type": "object",
+                "properties": {
+                  "VideoId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Title": {
+                    "type": "string"
+                  },
+                  "Description": {
+                    "type": "string"
+                  },
+                  "Duration": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "DifficultyLevel": {
+                    "type": "string"
+                  },
+                  "WorkoutType": {
+                    "type": "string"
+                  },
+                  "TargetAudience": {
+                    "type": "string"
+                  },
+                  "VideoArr": {
+                    "type": "string",
+                    "format": "byte"
+                  },
+                  "fileVideo": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "UploadedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "TrainerId": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "VideoId": {
+                  "style": "form"
+                },
+                "Title": {
+                  "style": "form"
+                },
+                "Description": {
+                  "style": "form"
+                },
+                "Duration": {
+                  "style": "form"
+                },
+                "DifficultyLevel": {
+                  "style": "form"
+                },
+                "WorkoutType": {
+                  "style": "form"
+                },
+                "TargetAudience": {
+                  "style": "form"
+                },
+                "VideoArr": {
+                  "style": "form"
+                },
+                "fileVideo": {
+                  "style": "form"
+                },
+                "UploadedAt": {
+                  "style": "form"
+                },
+                "TrainerId": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -626,51 +725,7 @@
   },
   "components": {
     "schemas": {
-      "DateOnly": {
-        "type": "object",
-        "properties": {
-          "year": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "month": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "day": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "dayOfWeek": {
-            "$ref": "#/components/schemas/DayOfWeek"
-          },
-          "dayOfYear": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "dayNumber": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "DayOfWeek": {
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
-      "User": {
+      "UserDto": {
         "type": "object",
         "properties": {
           "userId": {
@@ -683,7 +738,6 @@
           },
           "email": {
             "type": "string",
-            "format": "email",
             "nullable": true
           },
           "passwordHash": {
@@ -701,18 +755,11 @@
           "healthConditions": {
             "type": "string",
             "nullable": true
-          },
-          "workoutVideos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/WorkoutVideo"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "UserWorkoutPlan": {
+      "UserWorkoutPlanDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -723,42 +770,18 @@
             "type": "integer",
             "format": "int32"
           },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "videoId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "workoutVideo": {
-            "$ref": "#/components/schemas/WorkoutVideo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "WeatherForecast": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "$ref": "#/components/schemas/DateOnly"
-          },
-          "temperatureC": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "summary": {
-            "type": "string",
+          "videoIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "WorkoutVideo": {
+      "WorkoutVideoDto": {
         "type": "object",
         "properties": {
           "videoId": {
@@ -789,8 +812,14 @@
             "type": "string",
             "nullable": true
           },
-          "videoUrl": {
+          "videoArr": {
             "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "fileVideo": {
+            "type": "string",
+            "format": "binary",
             "nullable": true
           },
           "uploadedAt": {
@@ -800,9 +829,6 @@
           "trainerId": {
             "type": "integer",
             "format": "int32"
-          },
-          "trainer": {
-            "$ref": "#/components/schemas/User"
           }
         },
         "additionalProperties": false

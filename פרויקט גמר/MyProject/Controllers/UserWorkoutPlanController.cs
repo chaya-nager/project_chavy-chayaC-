@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.Dto;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.Entities;
 using Repository.Interfaces;
+using Service.Interfaces;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,24 +14,24 @@ namespace MyProject.Controllers
     [ApiController]
     public class UserWorkoutPlanController : ControllerBase
     {
-        private readonly IContext _context;
+        private readonly IService<UserWorkoutPlanDto> _service;
 
-        public UserWorkoutPlanController(IContext context)
+        public UserWorkoutPlanController(IService<UserWorkoutPlanDto> service)
         {
-            _context = context;
+            _service = service;
         }
         // GET: api/<UserWorkoutPlanController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserWorkoutPlan>>> GetUserWorkoutPlans()
+        public async Task<ActionResult<IEnumerable<UserWorkoutPlanDto>>> GetUserWorkoutPlans()
         {
-            return await _context.UserWorkoutPlans.ToListAsync();
+            return await _service.GetAllAsync();
         }
 
         // GET api/<UserWorkoutPlanController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserWorkoutPlan>> GetUserById(int id)
+        public async Task<ActionResult<UserWorkoutPlanDto>> GetUserById(int id)
         {
-            var userWorkoutPlan = await _context.UserWorkoutPlans.FindAsync(id);
+            var userWorkoutPlan = await _service.GetByIdAsync(id);
             if (userWorkoutPlan == null)
             {
                 return NotFound();
@@ -37,39 +40,46 @@ namespace MyProject.Controllers
         }
         // POST api/<UserWorkoutPlanController>
         [HttpPost]
-        public void Post(UserWorkoutPlan userWorkoutPlan)
-        {  // שמירה למסד הנתונים
-            _context.UserWorkoutPlans.Add(userWorkoutPlan);
-            _context.SaveChangesAsync();
+        public async Task Post(UserWorkoutPlanDto userWorkoutPlan)
+        {
+           await _service.AddItemAsync(userWorkoutPlan);
         }
 
 
         // PUT api/<UserWorkoutPlanController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserWorkoutPlan(int id, [FromBody] UserWorkoutPlan userWorkoutPlan)
+        public async Task<ActionResult<UserWorkoutPlanDto>> PutUserWorkoutPlan(int id, [FromBody] UserWorkoutPlanDto userWorkoutPlan)
         {
             if (id != userWorkoutPlan.Id)
-                return BadRequest("ID mismatch.");
-            var userWorkoutPlanUpdate = await _context.UserWorkoutPlans.FindAsync(id);
-            if (userWorkoutPlanUpdate == null)
+            {
+                return BadRequest("User ID mismatch.");
+            }
+            var userUpdate = await _service.GetByIdAsync(id);
+            if (userUpdate == null)
+            {
                 return NotFound();
-            userWorkoutPlanUpdate.UserId = userWorkoutPlan.UserId;
-            userWorkoutPlanUpdate.VideoId = userWorkoutPlan.VideoId;
-            try
-            {
-                await _context.SaveChangesAsync();
-                return NoContent(); // הצלחה בלי תוכן
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
+            await _service.UpdateItemAsync(id, userWorkoutPlan);
 
+            List<int> videoIds = userWorkoutPlan.VideoIds;
+            foreach (int item in videoIds)
+            {
+                Console.WriteLine(item);
+            }
+            
+            return Ok(userUpdate);
+        }
         // DELETE api/<UserWorkoutPlanController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteUserWorkoutPlan(int id)
         {
+            var user = await _service.GetByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            await _service.DeleteItemAsync(id);
+            return NoContent(); 
         }
     }
 }

@@ -27,5 +27,7 @@ namespace Repository.Entities
 
         // קשר 1 לרבים - משתמש יכול להעלות סרטונים אם הוא מאמן
         public ICollection<WorkoutVideo>? WorkoutVideos { get; set; }
+        public UserWorkoutPlan UserWorkoutPlan { get; set; }
+
     }
 }

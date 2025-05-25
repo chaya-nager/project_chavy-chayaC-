@@ -34,5 +34,9 @@ namespace Repository.Entities
         [ForeignKey("User")]
         public int TrainerId { get; set; }
         public User? Trainer { get; set; }
+
+        [ForeignKey("UserWorkoutPlan")]
+        public int? UserWorkoutPlanId { get; set; }
+        public UserWorkoutPlan? UserWorkoutPlan { get; set; }
     }
 }
